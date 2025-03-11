@@ -28,3 +28,5 @@ SignaText adalah web app yang menerjemahkan bahasa isyarat ke teks secara real-t
 2. **User melakukan isyarat di depan kamera** → Frontend menangkap video frame
 3. **Frame dikirim ke backend** → Flask memproses dengan model AI
 4. **Hasil dikembalikan ke frontend** → Ditampilkan sebagai teks
+
+## tim
