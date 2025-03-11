@@ -31,14 +31,14 @@ SignaText adalah web app yang menerjemahkan bahasa isyarat ke teks secara real-t
 
 ### **Workflow Git untuk Tim**
 
-1. **Clone repo hanya untuk branch masing-masing**
+1. **Clone repo hanya untuk branch masing-masing** (lihat langkah pertama di atas)
 2. **Kerjakan kode di branch sendiri**
    ```bash
    git add .
    git commit -m "Menambahkan fitur X"
    git push origin backend  # atau frontend/ml-model sesuai tim
    ```
-3. **Merge ke `develop` Setelah untuk testing Model + backend + frontend**
+3. **Merge ke `develop` Setelah Stabil**
    ```bash
    git checkout develop
    git merge backend
@@ -57,13 +57,4 @@ SignaText adalah web app yang menerjemahkan bahasa isyarat ke teks secara real-t
 
 - **Setiap tim hanya bekerja di branch masing-masing** agar tidak tabrakan.
 - **Gunakan `develop` hanya untuk integrasi fitur** setelah diuji.
-- # **Jangan langsung push ke `main`** kecuali sudah disetujui tim.
-
-1. **User membuka web app** → Frontend menampilkan UI
-2. **User melakukan isyarat di depan kamera** → Frontend menangkap video frame
-3. **Frame dikirim ke backend** → Flask memproses dengan model AI
-4. **Hasil dikembalikan ke frontend** → Ditampilkan sebagai teks
-
-## tim
-
-main
+- **Jangan langsung push ke `main`** kecuali sudah disetujui tim
