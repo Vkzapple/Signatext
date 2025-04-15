@@ -19,7 +19,7 @@ import requests
 # Inisialisasi Flask app
 app = Flask(__name__)
 
-# Setup Cloudinary: ganti 'YOUR_CLOUD_NAME', 'YOUR_API_KEY', 'YOUR_API_SECRET' dengan kredensial asli kamu.
+# Setup Cloudinary: ganti 'YOUR_CLOUD_NAME', 'YOUR_API_KEY', 'YOUR_API_SECRET' 
 cloudinary.config(
     cloud_name='YOUR_CLOUD_NAME',
     api_key='YOUR_API_KEY',
