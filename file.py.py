@@ -12,7 +12,7 @@ import os
 
 # Kompatibilitas path model
 pathlib.PosixPath = pathlib.WindowsPath
-sys.path.append(r'D:\Noding\aiojwaioje\yolov5')  # Ganti path ke repo YOLO kamu
+sys.path.append(r'https://github.com/Vkzapple/Signatext/blob/2fbd820f9168492061ed51c2945de4cb7748babc/bisindo_best.pt')  # Ganti path ke repo YOLO kamu
 
 from models.common import DetectMultiBackend
 
