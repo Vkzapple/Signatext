@@ -38,7 +38,7 @@ while True:
             *xyxy, conf, cls = detection
             
             # Konversi tensor ke tipe data Python
-            cls = int(cls.item())  # Perbaikan utama di sini
+            cls = int(cls.item())  
             label = names[cls]
             
             # Konversi koordinat
