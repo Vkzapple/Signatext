@@ -20,6 +20,7 @@ from models.common import DetectMultiBackend
 model = DetectMultiBackend('bisindo_best.pt', device='cpu')
 names = model.names
 
+# Deteksi frame menjadi label
 def detect_frame(frame):
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     tensor = torch.from_numpy(frame_rgb).permute(2, 0, 1).float().unsqueeze(0) / 255.0
@@ -28,25 +29,22 @@ def detect_frame(frame):
 
     for detection in results:
         *xyxy, conf, cls = detection
-        x1, y1, x2, y2 = map(int, map(torch.Tensor.item, xyxy))
         cls = int(cls.item())
         label = names[cls]
-        output.append({
-            'label': label,
-            'confidence': float(conf),
-            'bbox': [x1, y1, x2, y2]
-        })
+        output.append(label)
     return output
 
+# Prediksi gambar
 def predict_image(path):
     frame = cv2.imread(path)
-    return [{"frame": 1, "detections": detect_frame(frame)}]
+    detections = detect_frame(frame)
+    return detections
 
+# Prediksi video
 def predict_video(path, frame_skip=10):
     cap = cv2.VideoCapture(path)
-    results = []
+    detected_labels = []
     frame_id = 0
-    out_id = 0
 
     while True:
         ret, frame = cap.read()
@@ -55,15 +53,11 @@ def predict_video(path, frame_skip=10):
         frame_id += 1
         if frame_id % frame_skip == 0:
             detections = detect_frame(frame)
-            results.append({
-                'frame': frame_id,
-                'detections': detections
-            })
-            out_id += 1
-
+            detected_labels.extend(detections)
     cap.release()
-    return results
+    return detected_labels
 
+# Prediksi dari URL
 def download_from_url(url):
     response = requests.get(url)
     content_type = response.headers['Content-Type']
@@ -81,8 +75,29 @@ def download_from_url(url):
             f.write(response.content)
         return predict_video(temp_path)
     else:
-        return [{"error": "Unsupported file type from URL."}]
+        return ["Unsupported file type from URL."]
 
+# Konversi label ke teks
+def labels_to_text(labels):
+    text = ''
+    for label in labels:
+        if label.upper() == "SPACE":
+            text += ' '
+        else:
+            text += label.upper()
+    return text
+
+# Simpan hasil ke JSON
+def save_to_json(labels, filename="hasil_prediksi.json"):
+    data = {
+        "labels": labels,
+        "text": labels_to_text(labels)
+    }
+    with open(filename, 'w') as json_file:
+        json.dump(data, json_file, indent=2)
+    print(f"Hasil berhasil disimpan di: {filename}")
+
+# Main program
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--image', type=str, help='Path to image file')
@@ -97,6 +112,6 @@ if __name__ == '__main__':
     elif args.url:
         result = download_from_url(args.url)
     else:
-        result = [{"error": "Please provide --image or --video or --url"}]
+        result = ["Please provide --image or --video or --url"]
 
-    print(json.dumps(result, indent=2))
+    save_to_json(result)
