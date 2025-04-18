@@ -1,0 +1,9 @@
+torch
+opencv-python
+flask
+flask-cors
+cloudinary
+pillow
+numpy
+requests
+psycopg2-binary
