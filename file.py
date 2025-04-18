@@ -14,10 +14,12 @@ import argparse
 import json
 import requests
 
-# Inisialisasi Flask app\app = Flask(__name__)
+# Inisialisasi Flask app
+app = Flask(__name__)
 CORS(app)
 
 # Konfigurasi Cloudinary
+device = os.getenv("YOLO_DEVICE", "cpu")
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME", "dljflfis5"),
     api_key=os.getenv("CLOUDINARY_API_KEY", "688273164556944"),
@@ -38,8 +40,7 @@ conn = psycopg2.connect(
 )
 cursor = conn.cursor()
 
-# Path ke model YOLOv5
-model = DetectMultiBackend("bisindo_best.pt", device='cpu')
+# Load model YOLOv5\ nmodel = DetectMultiBackend("bisindo_best.pt", device=device)
 names = model.names
 
 def detect_frame(frame):
@@ -47,11 +48,9 @@ def detect_frame(frame):
     tensor = torch.from_numpy(frame_rgb).permute(2, 0, 1).float().unsqueeze(0) / 255.0
     results = model(tensor)[0]
     output = []
-    for detection in results:
-        *xyxy, conf, cls = detection
-        x1, y1, x2, y2 = map(int, map(torch.Tensor.item, xyxy))
-        cls = int(cls.item())
-        label = names[cls]
+    for *xyxy, conf, cls in results:
+        x1, y1, x2, y2 = [int(x.item()) for x in xyxy]
+        label = names[int(cls.item())]
         output.append({
             'label': label,
             'confidence': float(conf),
@@ -61,8 +60,7 @@ def detect_frame(frame):
 
 def predict_image(path):
     frame = cv2.imread(path)
-    detections = detect_frame(frame)
-    return {"file": path, "detections": detections}
+    return {"file": path, "detections": detect_frame(frame)}
 
 def predict_video(path, frame_skip=10):
     cap = cv2.VideoCapture(path)
@@ -74,82 +72,88 @@ def predict_video(path, frame_skip=10):
             break
         frame_id += 1
         if frame_id % frame_skip == 0:
-            detections = detect_frame(frame)
-            results.append({ 'frame': frame_id, 'detections': detections })
+            results.append({ 'frame': frame_id, 'detections': detect_frame(frame) })
     cap.release()
     return {"file": path, "video_detections": results}
 
 def download_from_url(url):
-    response = requests.get(url)
-    content_type = response.headers.get('Content-Type', '')
-    if 'image' in content_type:
-        img = Image.open(BytesIO(response.content)).convert('RGB')
+    resp = requests.get(url)
+    ctype = resp.headers.get('Content-Type', '')
+    if 'image' in ctype:
+        img = Image.open(BytesIO(resp.content)).convert('RGB')
         frame = np.array(img)
         frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        temp_path = "temp_image.jpg"
-        cv2.imwrite(temp_path, frame_bgr)
-        return predict_image(temp_path)
-    elif 'video' in content_type:
-        temp_path = "temp_video.mp4"
-        with open(temp_path, 'wb') as f:
-            f.write(response.content)
-        return predict_video(temp_path)
+        temp = "temp_image.jpg"
+        cv2.imwrite(temp, frame_bgr)
+        return predict_image(temp)
+    elif 'video' in ctype:
+        temp = "temp_video.mp4"
+        with open(temp, 'wb') as f:
+            f.write(resp.content)
+        return predict_video(temp)
     else:
-        return {"error": "Unsupported file type from URL."}
+        return {"error": "Unsupported file type"}
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-
-    file = request.files['file']
-    # Simpan bytes untuk re-upload ke Cloudinary
-    file_bytes = file.read()
-    nparr = np.frombuffer(file_bytes, np.uint8)
-    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-    # Ambil user context\    user_id = request.form.get('user_id', type=int)
+    user_id = request.form.get('user_id', type=int)
     session_id = request.form.get('session_id')
 
-    # Deteksi
-    detections = detect_frame(frame)
+    # Case 1: file upload
+    if 'file' in request.files:
+        file = request.files['file']
+        data = file.read()
+        arr = np.frombuffer(data, np.uint8)
+        frame = cv2.imdecode(arr, cv2.IMREAD_COLOR)
 
-    # Simpan hasil deteksi ke PostgreSQL
-    saved_ids = []
-    if user_id:
-        for det in detections:
-            letter = det['label']
-            accuracy = det['confidence'] * 100
-            cursor.execute(
-                """
-                INSERT INTO letters (user_id, session_id, letter, accuracy)
-                VALUES (%s, %s, %s, %s) RETURNING id
-                """,
-                (user_id, session_id, letter, accuracy)
-            )
-            det_id = cursor.fetchone()[0]
-            saved_ids.append(det_id)
-        conn.commit()
+        detections = detect_frame(frame)
+        saved = []
+        if user_id:
+            for det in detections:
+                cursor.execute(
+                    "INSERT INTO letters (user_id, session_id, letter, accuracy) VALUES (%s, %s, %s, %s) RETURNING id",
+                    (user_id, session_id, det['label'], det['confidence']*100)
+                )
+                saved.append(cursor.fetchone()[0])
+            conn.commit()
 
-    # Upload file ke Cloudinary
-    upload_stream = BytesIO(file_bytes)
-    upload_result = cloudinary.uploader.upload(upload_stream)
-    image_url = upload_result.get('secure_url', '')
+        upload = BytesIO(data)
+        res = cloudinary.uploader.upload(upload)
+        media_url = res.get('secure_url')
 
-    return jsonify({
-        'detections': detections,
-        'saved_ids': saved_ids,
-        'image_url': image_url
-    })
+        return jsonify({ 'detections': detections, 'saved_ids': saved, 'media_url': media_url })
+
+    # Case 2: URL provided
+    url = request.form.get('url')
+    if url:
+        result = download_from_url(url)
+        detections = result.get('detections') or result.get('video_detections', [])
+
+        saved = []
+        if user_id:
+            for det in detections:
+                cursor.execute(
+                    "INSERT INTO letters (user_id, session_id, letter, accuracy) VALUES (%s, %s, %s, %s) RETURNING id",
+                    (user_id, session_id, det['label'], det.get('confidence',0)*100)
+                )
+                saved.append(cursor.fetchone()[0])
+            conn.commit()
+
+        # Upload URL to Cloudinary
+        res = cloudinary.uploader.upload(url, resource_type='video')
+        media_url = res.get('secure_url')
+
+        return jsonify({ 'detections': detections, 'saved_ids': saved, 'media_url': media_url })
+
+    return jsonify({'error': 'No file or url provided'}), 400
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="YOLOv5 BISINDO Detection Service")
-    parser.add_argument('--image', type=str, help='Path to local image file')
-    parser.add_argument('--video', type=str, help='Path to local video file')
-    parser.add_argument('--url', type=str, help='URL of image or video file')
-    parser.add_argument('--cli', action='store_true', help='Run in CLI mode')
-    args = parser.parse_args()
-
+    p = argparse.ArgumentParser(description="YOLOv5 BISINDO Service")
+    p.add_argument('--image', type=str)
+    p.add_argument('--video', type=str)
+    p.add_argument('--url', type=str)
+    p.add_argument('--cli', action='store_true')
+    args = p.parse_args()
     if args.cli:
         if args.image:
             print(json.dumps(predict_image(args.image), indent=2))
@@ -158,6 +162,6 @@ if __name__ == '__main__':
         elif args.url:
             print(json.dumps(download_from_url(args.url), indent=2))
         else:
-            print(json.dumps({"error": "Provide --image, --video, or --url"}, indent=2))
+            print(json.dumps({"error":"Provide --image, --video, or --url"}, indent=2))
     else:
-        app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5000)))
+        app.run(host='0.0.0.0', port=int(os.getenv("PORT",5000)))
