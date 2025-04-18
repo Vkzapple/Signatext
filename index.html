@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignaText</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "custom-blue": "#484f91",
+              "custom-purple": "#9b59b6",
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+    <!-- Hero Section -->
+     <section id="navbar"></section>
+    <section id="hero"
+      class="bg-custom-blue min-h-screen flex justify-center items-center flex-col relative overflow-hidden"
+      style="
+        background-image: url('/assets/0062.png');
+        background-size: cover;
+        background-position: center;
+      "
+    >
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <div class="relative text-center text-white px-4 animate-fade-in">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+          Selamat Datang di <span class="text-custom-purple">SignaText</span>
+        </h1>
+        <p class="text-xl md:text-3xl font-semibold max-w-2xl mx-auto mb-8">
+          Menghubungkan bahasa isyarat dengan teknologi untuk komunikasi yang lebih inklusif.
+        </p>
+        <button
+          class="button bg-custom-blue text-white px-8 py-4 rounded-full text-lg font-semibold transform transition hover:scale-105"
+          onclick="document.getElementById('guide').scrollIntoView({ behavior: 'smooth' })"
+        >
+          Panduan Penggunaan
+        </button>
+      </div>
+    </section>
+
+    <!-- Guide Section -->
+    <section id="guide" class="py-24 px-4 bg-white min-h-screen">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-custom-blue mb-12">
+          Panduan Penggunaan
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-camera text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Unggah Video</h3>
+            <p class="text-gray-600">
+              Unggah video berisi bahasa isyarat yang ingin Anda terjemahkan.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-cogs text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Proses AI</h3>
+            <p class="text-gray-600">
+              Teknologi AI kami akan menganalisis video dan menghasilkan teks terjemahan.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-check-circle text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Dapatkan Hasil</h3>
+            <p class="text-gray-600">
+              Lihat hasil terjemahan dalam bentuk teks yang mudah dipahami.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- About Section -->
+<section id="about" class="py-24 px-4 bg-gray-100 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-4xl font-bold text-center text-custom-blue mb-12">
+      Tentang Kami
+    </h2>
+    <div class="mb-16 text-center max-w-3xl mx-auto">
+      <p class="text-gray-700 text-lg leading-relaxed">
+        <strong>SignaText</strong> adalah project yang dikembangkan oleh cohort dalam program <strong>Coding Camp Dicoding x DBS Foundation 2025</strong>. 
+        Proyek ini merupakan bagian dari tugas akhir bernama <strong>Capstone Project</strong> sebagai syarat kelulusan. 
+        Kami menghadirkan solusi inovatif berbasis AI untuk menerjemahkan bahasa isyarat ke dalam teks, demi menciptakan dunia yang lebih inklusif.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="animate-fade-in-left">
+        <h3 class="text-3xl font-semibold text-custom-blue mb-6">
+          Misi Kami
+        </h3>
+        <p class="text-gray-700 text-lg leading-relaxed">
+          Misi kami adalah membangun jembatan komunikasi yang inklusif dan efektif antara pengguna bahasa isyarat dan masyarakat umum. 
+          Dengan menggabungkan teknologi kecerdasan buatan dan komitmen terhadap aksesibilitas, 
+          SignaText hadir untuk memberdayakan penyandang disabilitas dalam berkomunikasi secara lebih setara dan mandiri di berbagai aspek kehidupan.
+        </p>
+      </div>
+      <div class="animate-fade-in-right">
+        <h3 class="text-3xl font-semibold text-custom-blue mb-6">
+          Tim Developer
+        </h3>
+        <ul class="space-y-3 text-gray-700 text-lg">
+          <li class="flex items-center gap-2">
+            <strong>Evelly Khanzania Putri</strong> – Backend Developer
+            <a href="https://github.com/Vkzapple" target="_blank" class="text-gray-600 hover:text-black">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="flex items-center gap-2">
+            <strong>Davy Augustnur Ismail</strong> – Backend Developer
+            <a href="https://github.com/davyaugustnurismail" target="_blank" class="text-gray-600 hover:text-black">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="flex items-center gap-2">
+            <strong>Niken Putri Maharani</strong> – Frontend Developer
+            <a href="https://github.com/KeennZ" target="_blank" class="text-gray-600 hover:text-black">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="flex items-center gap-2">
+            <strong>Maulidan Fazri</strong> – Frontend Developer
+            <a href="https://github.com/MaulidanFazri" target="_blank" class="text-gray-600 hover:text-black">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"/>
+              </svg>
+            </a>
+          </li>
+          <li class="flex items-center gap-2">
+            <strong>Ahmad Fauzan</strong> – Machine Learning Engineer
+            <a href="https://github.com/Kerleta" target="_blank" class="text-gray-600 hover:text-black">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Main Section -->
+    <section id="features" class="py-24 px-4">
+      <div class="max-w-7xl mx-auto bg-white p-12 shadow-xl rounded-lg">
+        <div class="flex justify-center items-center gap-12 flex-wrap mb-12">
+          <!-- Upload Box -->
+          <div
+            class="box w-96 h-96 bg-gray-100 rounded-lg shadow-md flex items-center justify-center relative transition transform hover:scale-105"
+          >
+            <div class="text-center">
+              <label
+                for="video-upload"
+                class="button mt-4 cursor-pointer bg-custom-blue hover:bg-indigo-800 text-white px-6 py-3 rounded-full text-lg inline-flex items-center transition"
+              >
+                <i class="fas fa-upload mr-2"></i> Unggah Video
+              </label>
+              <input
+                type="file"
+                id="video-upload"
+                class="hidden"
+                accept="video/*"
+              />
+              <video
+                id="uploaded-video"
+                width="300"
+                controls
+                class="mt-4 hidden rounded-lg shadow"
+              >
+                <source id="video-source" type="video/mp4" />
+                Browser Anda tidak mendukung elemen video.
+              </video>
+            </div>
+          </div>
+          <!-- Deteksi Box -->
+          <div
+            class="box w-96 h-96 bg-gray-100 rounded-lg shadow-md flex items-center justify-center relative transition transform hover:scale-105"
+          >
+            <div class="text-center">
+              <div class="text-6xl font-bold text-gray-700" id="deteksiText">
+                A
+              </div>
+              <p class="text-sm text-gray-500 mt-2">Deteksi Huruf</p>
+              <div class="text-xs text-gray-400 mt-2">
+                <p id="processingText">AI Processing......</p>
+                <div class="text-green-500" id="accuracy">95% Akurasi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Result -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow mb-12">
+          <h3 class="text-xl font-semibold mb-4">Hasil Terjemahan</h3>
+          <p class="text-lg text-gray-800" id="translatedText">
+            Teks hasil terjemahan akan muncul di sini
+          </p>
+          <div class="mt-4 text-right">
+            <button
+              id="history-btn"
+              class="button bg-custom-blue text-white px-4 py-2 rounded-full hover:bg-indigo-800 transition hidden"
+            >
+              Lihat Riwayat
+            </button>
+            <a
+              href="#"
+              id="login-for-history"
+              class="text-sm text-gray-500 ml-4"
+              >Masuk untuk melihat riwayat</a
+            >
+          </div>
+        </div>
+        <!-- Upload Ulang -->
+        <div class="text-center hidden" id="upload-again-btn">
+          <button
+            class="button bg-custom-blue text-white px-6 py-3 rounded-full hover:bg-indigo-800 transition"
+            id="upload-again"
+          >
+            Unggah Video Ulang
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center py-12 text-sm text-gray-500">
+      &copy; 2025 SignaText. All rights reserved.
+    </footer>
+    <style>
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+      }
+      .animate-fade-in-left {
+        animation: fade-in-left 1s ease-out forwards;
+      }
+      .animate-fade-in-right {
+        animation: fade-in-right 1s ease-out forwards;
+      }
+      @keyframes fade-in-left {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes fade-in-right {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .button {
+        transition: background-color 0.3s, transform 0.2s;
+      }
+      .button:focus {
+        outline: 2px solid #9b59b6;
+        outline-offset: 2px;
+      }
+    </style>
+  </body>
+</html>
+
+    <script>
+   function checkAuthStatus() {
+    const token = localStorage.getItem("authToken");
+
+    const navbar = document.getElementById("navbar");
+    if (!navbar) return;
+
+    if (token) {
+      // Kalau sudah login, ubah tombol Login jadi Logout
+      navbar.querySelectorAll("a").forEach((a) => {
+        if (a.textContent.includes("Login")) {
+          a.textContent = "Logout";
+          a.href = "#";
+          a.id = "logout-btn";
+        }
+      });
+    }
+  }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Include Navbar
+      fetch("/navbar.html")
+    .then((res) => res.text())
+    .then((html) => {
+      document.getElementById("navbar").innerHTML = html;
+      checkAuthStatus();
+
+      document.getElementById("logout-btn")?.addEventListener("click", () => {
+        localStorage.removeItem("authToken");
+        window.location.href = "/index.html";
+      });
+    })
+    .catch((err) => {
+      console.error("Gagal load navbar:", err);
+    });
+
+  async function loadHistory() {
+    const token = localStorage.getItem("authToken");
+    if (!token) return;
+
+    try {
+      const profileRes = await fetch("http://127.0.0.1:8000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const profileData = await profileRes.json();
+      const userId = profileData.data.id;
+
+      const historyRes = await fetch(`http://127.0.0.1:8000/api/history/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const history = await historyRes.json();
+      const list = document.getElementById("history-list");
+      const section = document.getElementById("history-section");
+
+      if (history.data && history.data.length > 0) {
+        section.classList.remove("hidden");
+        list.innerHTML = "";
+        history.data.forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item.translated_text;
+          list.appendChild(li);
+        });
+      }
+    } catch (err) {
+      console.error("Gagal load history:", err);
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    loadHistory();
+  });
+
+
+        // Existing upload logic
+        let uploadedVideoUrl = null;
+        let detectedLetter = "";
+        let translatedText = "";
+        let processing = false;
+        let accuracy = "95% Akurasi";
+        document
+          .getElementById("video-upload")
+          .addEventListener("change", async function (event) {
+            const video = document.getElementById("uploaded-video");
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+              processing = true;
+              document.getElementById("processingText").textContent =
+                "AI Processing......";
+              document.getElementById("accuracy").textContent = "95% Akurasi";
+              document.getElementById("deteksiText").textContent = "";
+
+              // Kirim file video ke backend Laravel
+              const formData = new FormData();
+              formData.append("video", file);
+
+              const response = await fetch("/api/video/upload", {
+                method: "POST",
+                body: formData,
+              });
+
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+
+              const data = await response.json();
+
+              // Simpan hasil dari backend
+              uploadedVideoUrl = URL.createObjectURL(file);
+              detectedLetter = data.detected_letter || "";
+              translatedText = data.translated_text || "";
+              accuracy = `${data.accuracy}% Akurasi`;
+
+              // Tampilkan hasil
+              video.style.display = "block";
+              video.src = uploadedVideoUrl;
+              document.getElementById("upload-box").style.display = "none";
+              document.getElementById("upload-again-btn").style.display =
+                "block";
+
+              // Update UI
+              document.getElementById("deteksiText").textContent =
+                detectedLetter;
+              document.getElementById("processingText").textContent =
+                "AI Processing... Selesai";
+              document.getElementById("accuracy").textContent = accuracy;
+              document.getElementById("translatedText").textContent =
+                translatedText;
+              processing = false;
+            } catch (error) {
+              console.error("Error uploading video:", error);
+              processing = false;
+            }
+          });
+
+        //reset upload
+        document
+          .getElementById("upload-again")
+          .addEventListener("click", function () {
+            const video = document.getElementById("uploaded-video");
+            video.style.display = "none";
+            video.src = "";
+
+            document.getElementById("deteksiText").textContent = "";
+            document.getElementById("processingText").textContent =
+              "AI Processing......";
+            document.getElementById("accuracy").textContent = "95% Akurasi";
+            document.getElementById("translatedText").textContent =
+              "Teks hasil terjemahan akan muncul di sini";
+
+            document.getElementById("upload-box").style.display = "block";
+            document.getElementById("upload-again-btn").style.display = "none";
+          });
+
+        //"Lihat Riwayat"
+        document
+          .getElementById("history-btn")
+          ?.addEventListener("click", () => {
+            window.location.href = "/history.html";
+          });
+
+        // "Masuk untuk melihat riwayat"
+        document
+          .getElementById("login-for-history")
+          ?.addEventListener("click", () => {
+            window.location.href = "/login.html";
+          });
+      });
+    </script>
+  </body>
+</html>

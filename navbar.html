@@ -1,0 +1,58 @@
+<nav class="bg-white shadow-md sticky top-0 z-50" x-data="{ open: false }">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex items-center space-x-3">
+        <img class="h-10 w-auto" src="/assets/logoSAT.png" alt="Logo" />
+        <span class="text-lg font-bold text-custom-blue">SignaText</span>
+      </div>
+      <div class="hidden md:flex space-x-6 items-center">
+        <a href="#hero" class="hover:text-custom-blue">Beranda</a>
+        <a href="#about" class="hover:text-custom-blue">Tentang</a>
+        <a href="#features" class="hover:text-custom-blue">Fitur Utama</a>
+        <a
+          href="/login.html"
+          class="px-4 py-2 rounded-full bg-custom-blue text-white hover:bg-indigo-800 transition"
+          >Login</a
+        >
+      </div>
+      <div class="md:hidden">
+        <button @click="open = !open" class="focus:outline-none">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              x-show="!open"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="md:hidden" x-show="open" x-transition>
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a href="#" class="block px-3 py-2 rounded-md hover:text-custom-blue"
+        >Beranda</a
+      >
+      <a href="#about" class="block px-3 py-2 rounded-md hover:text-custom-blue"
+        >Tentang</a
+      >
+      <a
+        href="#features"
+        class="block px-3 py-2 rounded-md hover:text-custom-blue"
+        >Fitur Utama</a
+      >
+      <a
+        href="/login.html"
+        class="block px-3 py-2 bg-custom-blue text-white text-center rounded-full hover:bg-indigo-800"
+        >Login</a
+      >
+    </div>
+  </div>
+</nav>
