@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoController;
 
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -35,3 +36,5 @@ Route::post('/logout', [AuthController::class, 'logout'])
 Route::get('/me', [UserController::class, 'profile'])
     ->middleware('auth:sanctum');
 });
+
+Route::post('/upload-video', [VideoController::class, 'uploadMedia']);
