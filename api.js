@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:8000/api";
+const BASE_URL = "https://signatextbe-production.up.railway.app/api"; 
 
 const getToken = () => localStorage.getItem("authToken");
 const saveToken = (token) => localStorage.setItem("authToken", token);
@@ -11,7 +11,7 @@ const getAuthHeaders = () => ({
 
 export const registerUser = async (username, email, password) => {
   try {
-    const res = await fetch(`${BASE_URL}/auth/register`, {
+    const res = await fetch(`${BASE_URL}/auth/register`, { 
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const registerUser = async (username, email, password) => {
       body: JSON.stringify({ username, email, password }),
     });
 
-    const text = await res.text(); // debug safe
+    const text = await res.text(); 
     try {
       const data = JSON.parse(text);
       if (data.token) saveToken(data.token);
@@ -36,7 +36,7 @@ export const registerUser = async (username, email, password) => {
 
 export const loginUser = async (email, password) => {
   try {
-    const res = await fetch(`${BASE_URL}/auth/login`, {
+    const res = await fetch(`${BASE_URL}/auth/login`, {  
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const loginUser = async (email, password) => {
       body: JSON.stringify({ email, password }),
     });
 
-    const text = await res.text(); // debug
+    const text = await res.text(); 
     try {
       const data = JSON.parse(text);
       if (data.token) saveToken(data.token);
@@ -61,7 +61,7 @@ export const loginUser = async (email, password) => {
 
 export const logoutUser = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/auth/logout`, {
+    const res = await fetch(`${BASE_URL}/auth/logout`, {  
       method: "POST",
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -79,7 +79,7 @@ export const logoutUser = async () => {
 
 export const getUserProfile = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/auth/me`, {
+    const res = await fetch(`${BASE_URL}/auth/me`, {  
       method: "GET",
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -94,7 +94,7 @@ export const getUserProfile = async () => {
 };
 
 export const fetchAllHistory = async () => {
-  const res = await fetch(`${BASE_URL}/history`, {
+  const res = await fetch(`${BASE_URL}/history`, {  
     method: "GET",
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -105,7 +105,7 @@ export const fetchAllHistory = async () => {
 };
 
 export const fetchUserHistory = async (userId) => {
-  const res = await fetch(`${BASE_URL}/history/user/${userId}`, {
+  const res = await fetch(`${BASE_URL}/history/user/${userId}`, {  
     method: "GET",
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -116,7 +116,7 @@ export const fetchUserHistory = async (userId) => {
 };
 
 export const addHistory = async (user_id, translated_text) => {
-  const res = await fetch(`${BASE_URL}/history/save`, {
+  const res = await fetch(`${BASE_URL}/history/save`, {  
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify({ user_id, translated_text }),
@@ -126,7 +126,7 @@ export const addHistory = async (user_id, translated_text) => {
 };
 
 export const deleteHistory = async (id) => {
-  const res = await fetch(`${BASE_URL}/history/${id}`, {
+  const res = await fetch(`${BASE_URL}/history/${id}`, {  
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${getToken()}`,
@@ -136,5 +136,5 @@ export const deleteHistory = async (id) => {
   return await res.json();
 };
 
-// Export token tools
+
 export { getToken, saveToken, removeToken };
