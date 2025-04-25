@@ -66,29 +66,37 @@ class VideoController extends Controller
     private function processMediaWithComputerVision($mediaUrl)
     {
         try {
-            $endpoint = 'https://enthusiastic-adventure-production.up.railway.app/predict';
-
-            // Logging request ke API Computer Vision
-            Log::info('Sending request to Computer Vision API:', ['url' => $mediaUrl]);
-
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/x-www-form-urlencoded',
-            ])->post($endpoint, [
+            $endpoint = 'http://bisindo-api.loca.lt/predict';
+        
+            // Send the URL as form data
+            $response = Http::asForm()->post($endpoint, [
                 'url' => $mediaUrl,
             ]);
-            
-            // Log payload yang dikirim
+    
+            // Log payload and response
             Log::info('Payload sent to Flask:', ['payload' => ['url' => $mediaUrl]]);
-            
-            // Log respons dari Flask
             Log::info('API response:', ['status' => $response->status(), 'body' => $response->body()]);
-
+    
             if ($response->failed()) {
                 Log::error('API processing error: ' . $response->status() . ' - ' . $response->body());
                 throw new \Exception('Failed to process media with Computer Vision API. Status: ' . $response->status());
             }
-
-            return $response->json();
+    
+            // Parse the response JSON
+            $responseData = $response->json();
+    
+            // Extract only the required fields: count and simplified predictions
+            $simplifiedResponse = [
+                'count' => $responseData['count'],
+                'predictions' => array_map(function ($prediction) {
+                    return [
+                        'confidence' => $prediction['confidence'],
+                        'label' => $prediction['label'],
+                    ];
+                }, $responseData['predictions']),
+            ];
+        
+            return $simplifiedResponse;
         } catch (\Exception $e) {
             Log::error('Error processing media with Computer Vision API: ' . $e->getMessage());
             throw $e;
