@@ -4,9 +4,9 @@ SignaText adalah web app yang menerjemahkan bahasa isyarat ke teks secara real-t
 
 ## 🛠 Tech Stack
 
-- **Machine Learning**: Python, TensorFlow
+- **Machine Learning**: Python, Yolo
 - **Database**: SQL
-- **Backend**: Hapi.js, Flask (untuk model AI)
+- **Backend**: Php, Laravel
 - **Frontend**: HTML, CSS, JavaScript
 
 ### **Branch dalam Repository**

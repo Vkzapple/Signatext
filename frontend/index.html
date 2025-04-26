@@ -168,7 +168,7 @@
             </h3>
             <ul class="space-y-3 text-gray-700 text-lg">
               <li class="flex items-center gap-2">
-                <strong>Evelly Khanzania Putri</strong> – Backend Developer
+                <strong>Evelly Khanzania Putri</strong> – Full stack Developer
                 <a
                   href="https://github.com/Vkzapple"
                   target="_blank"
@@ -369,10 +369,9 @@
       };
 
       const updateHistoryText = () => {
-
         const loginHistory = document.getElementById("login-for-history");
         const isLoggedIn = checkAuth();
-        
+
         loginHistory.innerHTML = `        
         ${
           isLoggedIn
@@ -380,7 +379,7 @@
             : `<a href="#" id="login-for-history" class="text-sm text-gray-500 ml-4">Masuk untuk melihat riwayat</a>`
         }
       `;
-        };
+      };
 
       document.addEventListener("DOMContentLoaded", updateNavbar);
       document.addEventListener("DOMContentLoaded", updateHistoryText);
