@@ -106,7 +106,7 @@
         .addEventListener("submit", async function (e) {
           e.preventDefault();
 
-          const name = document.getElementById("username").value;
+          const username = document.getElementById("username").value;
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
 
@@ -119,7 +119,7 @@
                   "Content-Type": "application/json",
                   Accept: "application/json",
                 },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ username, email, password }),
               }
             );
 
