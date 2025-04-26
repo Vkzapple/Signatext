@@ -43,6 +43,21 @@
       <form id="login-form" class="space-y-4">
         <div>
           <label
+            for="username"
+            class="block mb-1 text-sm font-medium text-gray-700"
+            >username</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="username"
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            required
+          />
+        </div>
+        <div>
+          <label
             for="email"
             class="block mb-1 text-sm font-medium text-gray-700"
             >Email</label
@@ -93,26 +108,36 @@
         .getElementById("login-form")
         .addEventListener("submit", async function (e) {
           e.preventDefault();
-
+          const username = document.getElementById("username").value;
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
 
           try {
-            const res = await fetch("http://127.0.0.1:8000/api/auth/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ email, password }),
-            });
+            await fetch(
+              "https://signatextbe-production.up.railway.app/sanctum/csrf-cookie",
+              {
+                credentials: "include",
+              }
+            );
+            const res = await fetch(
+              "https://signatextbe-production.up.railway.app/api/auth/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ username, email, password }),
+              }
+            );
 
-            const text = await res.text();
-            const data = JSON.parse(text);
+            const data = await res.json();
 
             if (data.token) {
               localStorage.setItem("authToken", data.token);
               alert("Login berhasil!");
-              window.location.href = "index.html"; // redirect ke beranda
+              window.location.href = "index.html";
             } else {
               alert("Login gagal: " + (data.message || "Email/password salah"));
             }

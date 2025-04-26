@@ -5,21 +5,28 @@ const path = require("path");
 const app = express();
 const PORT = 5000;
 
-// Middleware untuk parsing body request
 app.use(express.json());
 
 // Serve static files
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname)));
 
-// Proxy untuk backend Laravel
+// Proxy
 app.use(
-  "/auth",
+  "/api",
+  createProxyMiddleware({
+    target: "https://signatextbe-production.up.railway.app",
+    changeOrigin: true,
+    pathRewrite: {
+      "^/api": "/api",
+    },
+  })
+);
+"/auth",
   createProxyMiddleware({
     target: "http://localhost:8000",
     changeOrigin: true,
-  })
-);
+  });
 
 // Route utama
 app.get("/", (req, res) => {
