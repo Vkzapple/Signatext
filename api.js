@@ -1,4 +1,4 @@
-const BASE_URL = "https://signatextbe-production.up.railway.app"
+const BASE_URL = "https://signatextbe-production.up.railway.app";
 
 // -----------------------------
 // Token Management
@@ -13,13 +13,15 @@ const removeToken = () => localStorage.removeItem("authToken");
 export const registerUser = async (username, email, password) => {
   try {
     const res = await fetch(`${BASE_URL}/api/auth/register`, {
-    const res = await fetch(`${BASE_URL}/auth/register`, { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
 
-    if (!res.ok) throw new Error("Register failed");
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Register failed: ${text}`);
+    }
 
     const data = await res.json();
     if (data.token) saveToken(data.token);
@@ -27,31 +29,21 @@ export const registerUser = async (username, email, password) => {
   } catch (err) {
     console.error("❌ Register error:", err);
     throw err;
-    const text = await res.text(); 
-    try {
-      const data = JSON.parse(text);
-      if (data.token) saveToken(data.token);
-      return data;
-    } catch (err) {
-      console.error("❌ Response bukan JSON:", text);
-      throw new Error("Server mengembalikan halaman HTML, bukan JSON.");
-    }
-  } catch (error) {
-    console.error("❌ Gagal register:", error);
-    throw error;
   }
 };
 
 export const loginUser = async (username, email, password) => {
   try {
     const res = await fetch(`${BASE_URL}/api/auth/login`, {
-    const res = await fetch(`${BASE_URL}/auth/login`, {  
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
 
-    if (!res.ok) throw new Error("Login failed");
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Login failed: ${text}`);
+    }
 
     const data = await res.json();
     if (data.token) saveToken(data.token);
@@ -59,25 +51,12 @@ export const loginUser = async (username, email, password) => {
   } catch (err) {
     console.error("❌ Login error:", err);
     throw err;
-    const text = await res.text(); 
-    try {
-      const data = JSON.parse(text);
-      if (data.token) saveToken(data.token);
-      return data;
-    } catch (err) {
-      console.error("❌ Response bukan JSON:", text);
-      throw new Error("Server mengembalikan halaman HTML, bukan JSON.");
-    }
-  } catch (error) {
-    console.error("❌ Gagal login:", error);
-    throw error;
   }
 };
 
 export const logoutUser = async () => {
   try {
     const res = await fetch(`${BASE_URL}/api/auth/logout`, {
-    const res = await fetch(`${BASE_URL}/auth/logout`, {  
       method: "POST",
       headers: { Authorization: `Bearer ${getToken()}` },
     });
@@ -92,36 +71,29 @@ export const logoutUser = async () => {
   }
 };
 
-export async function getUserProfile(userId) {
+export const getUserProfile = async (userId) => {
   try {
     const encodedUserId = encodeURIComponent(userId);
+    const res = await fetch(`${BASE_URL}/api/auth/user/${encodedUserId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
 
-    const res = await fetch(
-      `https://signatextbe-production.up.railway.app/api/auth/user/${encodedUserId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
+    if (!res.ok)
       throw new Error(`Failed to get user profile: ${res.statusText}`);
-    }
 
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (error) {
     console.error("❌ Get user profile error:", error);
-    throw new Error("Get user profile failed");
+    throw error;
   }
-}
+};
 
 export const getUserById = async (id) => {
   try {
     const res = await fetch(`${BASE_URL}/api/auth/user/${id}`, {
-    const res = await fetch(`${BASE_URL}/auth/me`, {  
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -149,12 +121,6 @@ export const fetchAllHistory = async () => {
     });
 
     if (!res.ok) throw new Error("Fetch all history failed");
-  const res = await fetch(`${BASE_URL}/history`, {  
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
 
     return await res.json();
   } catch (err) {
@@ -171,12 +137,6 @@ export const fetchUserHistory = async (userId) => {
     });
 
     if (!res.ok) throw new Error("Fetch user history failed");
-  const res = await fetch(`${BASE_URL}/history/user/${userId}`, {  
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
 
     return await res.json();
   } catch (err) {
@@ -185,49 +145,29 @@ export const fetchUserHistory = async (userId) => {
   }
 };
 
-export async function addHistory(userId, resultText) {
+export const addHistory = async (userId, resultText) => {
   try {
-    console.log("User ID:", userId);
-    if (!userId) {
-      throw new Error("User ID is undefined");
-    }
+    const res = await fetch(`${BASE_URL}/api/history/save`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ userId, resultText }),
+    });
 
-    const res = await fetch(
-      `https://signatextbe-production.up.railway.app/api/auth/user/${userId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-        body: JSON.stringify({ resultText }),
-      }
-    );
+    if (!res.ok) throw new Error("Add history failed");
 
-    if (!res.ok) {
-      throw new Error(`Failed to save history: ${res.statusText}`);
-    }
-
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (error) {
-    console.error("Error saving history:", error);
-    alert("❌ Gagal menyimpan riwayat");
+    console.error("❌ Add history error:", error);
+    throw error;
   }
-}
-export const addHistory = async (user_id, translated_text) => {
-  const res = await fetch(`${BASE_URL}/history/save`, {  
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify({ user_id, translated_text }),
-  });
-
-  return await res.json();
 };
 
 export const deleteHistory = async (id) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/history/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/history/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${getToken()}` },
     });
@@ -258,12 +198,6 @@ export const uploadMediaFile = async (file) => {
     });
 
     if (!res.ok) throw new Error("Upload media failed");
-  const res = await fetch(`${BASE_URL}/history/${id}`, {  
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
 
     return await res.json();
   } catch (err) {
@@ -275,5 +209,4 @@ export const uploadMediaFile = async (file) => {
 // -----------------------------
 // Export token utils
 // -----------------------------
-
 export { getToken, saveToken, removeToken };
