@@ -7,7 +7,7 @@ const PORT = 5000;
 
 app.use(express.json());
 
-// Serve static file
+// Serve static files
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.use(express.static(path.join(__dirname)));
 

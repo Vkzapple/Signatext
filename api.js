@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const BASE_URL = "https://signatextbe-production.up.railway.app";
-=======
-const BASE_URL = "https://signatextbe-production.up.railway.app/api"; 
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
+const BASE_URL = "https://signatextbe-production.up.railway.app"
 
 // -----------------------------
 // Token Management
@@ -16,17 +12,13 @@ const removeToken = () => localStorage.removeItem("authToken");
 // -----------------------------
 export const registerUser = async (username, email, password) => {
   try {
-<<<<<<< HEAD
     const res = await fetch(`${BASE_URL}/api/auth/register`, {
-=======
     const res = await fetch(`${BASE_URL}/auth/register`, { 
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
 
-<<<<<<< HEAD
     if (!res.ok) throw new Error("Register failed");
 
     const data = await res.json();
@@ -35,7 +27,6 @@ export const registerUser = async (username, email, password) => {
   } catch (err) {
     console.error("❌ Register error:", err);
     throw err;
-=======
     const text = await res.text(); 
     try {
       const data = JSON.parse(text);
@@ -48,23 +39,18 @@ export const registerUser = async (username, email, password) => {
   } catch (error) {
     console.error("❌ Gagal register:", error);
     throw error;
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
   }
 };
 
 export const loginUser = async (username, email, password) => {
   try {
-<<<<<<< HEAD
     const res = await fetch(`${BASE_URL}/api/auth/login`, {
-=======
     const res = await fetch(`${BASE_URL}/auth/login`, {  
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
     });
 
-<<<<<<< HEAD
     if (!res.ok) throw new Error("Login failed");
 
     const data = await res.json();
@@ -73,7 +59,6 @@ export const loginUser = async (username, email, password) => {
   } catch (err) {
     console.error("❌ Login error:", err);
     throw err;
-=======
     const text = await res.text(); 
     try {
       const data = JSON.parse(text);
@@ -86,14 +71,13 @@ export const loginUser = async (username, email, password) => {
   } catch (error) {
     console.error("❌ Gagal login:", error);
     throw error;
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
   }
 };
 
 export const logoutUser = async () => {
   try {
-<<<<<<< HEAD
     const res = await fetch(`${BASE_URL}/api/auth/logout`, {
+    const res = await fetch(`${BASE_URL}/auth/logout`, {  
       method: "POST",
       headers: { Authorization: `Bearer ${getToken()}` },
     });
@@ -137,6 +121,7 @@ export async function getUserProfile(userId) {
 export const getUserById = async (id) => {
   try {
     const res = await fetch(`${BASE_URL}/api/auth/user/${id}`, {
+    const res = await fetch(`${BASE_URL}/auth/me`, {  
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -164,6 +149,12 @@ export const fetchAllHistory = async () => {
     });
 
     if (!res.ok) throw new Error("Fetch all history failed");
+  const res = await fetch(`${BASE_URL}/history`, {  
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
 
     return await res.json();
   } catch (err) {
@@ -180,6 +171,12 @@ export const fetchUserHistory = async (userId) => {
     });
 
     if (!res.ok) throw new Error("Fetch user history failed");
+  const res = await fetch(`${BASE_URL}/history/user/${userId}`, {  
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
 
     return await res.json();
   } catch (err) {
@@ -218,6 +215,15 @@ export async function addHistory(userId, resultText) {
     alert("❌ Gagal menyimpan riwayat");
   }
 }
+export const addHistory = async (user_id, translated_text) => {
+  const res = await fetch(`${BASE_URL}/history/save`, {  
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ user_id, translated_text }),
+  });
+
+  return await res.json();
+};
 
 export const deleteHistory = async (id) => {
   try {
@@ -244,9 +250,6 @@ export const uploadMediaFile = async (file) => {
 
   try {
     const res = await fetch(`${BASE_URL}/api/upload`, {
-=======
-    const res = await fetch(`${BASE_URL}/auth/logout`, {  
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
       method: "POST",
       headers: {
         Authorization: `Bearer ${getToken()}`,
@@ -254,27 +257,13 @@ export const uploadMediaFile = async (file) => {
       body: formData,
     });
 
-<<<<<<< HEAD
     if (!res.ok) throw new Error("Upload media failed");
-=======
-    const data = await res.json();
-    removeToken();
-    return data;
-  } catch (error) {
-    console.error("❌ Gagal logout:", error);
-    throw error;
-  }
-};
-
-export const getUserProfile = async () => {
-  try {
-    const res = await fetch(`${BASE_URL}/auth/me`, {  
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
+  const res = await fetch(`${BASE_URL}/history/${id}`, {  
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
 
     return await res.json();
   } catch (err) {
@@ -283,54 +272,8 @@ export const getUserProfile = async () => {
   }
 };
 
-<<<<<<< HEAD
 // -----------------------------
 // Export token utils
 // -----------------------------
-=======
-export const fetchAllHistory = async () => {
-  const res = await fetch(`${BASE_URL}/history`, {  
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
 
-  return await res.json();
-};
-
-export const fetchUserHistory = async (userId) => {
-  const res = await fetch(`${BASE_URL}/history/user/${userId}`, {  
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-
-  return await res.json();
-};
-
-export const addHistory = async (user_id, translated_text) => {
-  const res = await fetch(`${BASE_URL}/history/save`, {  
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify({ user_id, translated_text }),
-  });
-
-  return await res.json();
-};
-
-export const deleteHistory = async (id) => {
-  const res = await fetch(`${BASE_URL}/history/${id}`, {  
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-
-  return await res.json();
-};
-
-
->>>>>>> 806a3e3ff95e14beb00a1f5278209efebc44891d
 export { getToken, saveToken, removeToken };
