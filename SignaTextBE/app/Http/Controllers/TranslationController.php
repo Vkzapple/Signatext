@@ -21,7 +21,7 @@ class TranslationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required',
             'translated_text' => 'required|string|max:65535',
         ]);
 
@@ -122,13 +122,6 @@ public function userHistory(Request $request, $userId)
     {
     // Get all translations for the specified user
     $translations = Translation::where('user_id', $userId)->get();
-
-    if ($translations->isEmpty()) {
-        return response()->json([
-            'success' => false,
-            'message' => 'No history found for this user',
-        ], 404);
-    }
 
     return response()->json([
         'success' => true,
