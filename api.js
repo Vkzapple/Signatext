@@ -71,18 +71,16 @@ export const logoutUser = async () => {
   }
 };
 
-export const getUserProfile = async (userId) => {
+export const getUserProfile = async () => {
   try {
-    const encodedUserId = encodeURIComponent(userId);
-    const res = await fetch(`${BASE_URL}/api/auth/user/${encodedUserId}`, {
+    const res = await fetch(`${BASE_URL}/api/auth/me`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${getToken()}`,
       },
     });
 
-    if (!res.ok)
-      throw new Error(`Failed to get user profile: ${res.statusText}`);
+    if (!res.ok) throw new Error(`Failed to get user profile: ${res.statusText}`);
 
     return await res.json();
   } catch (error) {
@@ -145,18 +143,27 @@ export const fetchUserHistory = async (userId) => {
   }
 };
 
-export const addHistory = async (userId, resultText) => {
+export const addHistory = async (user_id, translated_text) => {
   try {
+    // Log payload and token for debugging
+    console.log("Payload being sent:", { user_id, translated_text });
+    console.log("Token being used:", getToken());
+
     const res = await fetch(`${BASE_URL}/api/history/save`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({ userId, resultText }),
+      body: JSON.stringify({ user_id, translated_text }),
     });
 
-    if (!res.ok) throw new Error("Add history failed");
+    // Check for non-OK responses
+    if (!res.ok) {
+      const errorDetails = await res.json();
+      console.error("Server error details:", errorDetails);
+      throw new Error(`Add history failed: ${errorDetails.message || "Unknown error"}`);
+    }
 
     return await res.json();
   } catch (error) {

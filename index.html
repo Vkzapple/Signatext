@@ -182,7 +182,7 @@
                 </a>
               </li>
               <li class="flex items-center gap-2">
-                <strong>Davy Augustnur Ismail</strong> – Backend Developer
+                <strong>Davy Augustnur Ismail</strong> – Full Stack Developer
                 <a
                   href="https://github.com/davyaugustnurismail"
                   target="_blank"
@@ -368,30 +368,22 @@
   `;
       };
 
-      document
-        .getElementById("save-btn")
-        ?.addEventListener("click", async () => {
-          if (!checkAuth()) return alert("Harus login dulu untuk menyimpan.");
+      const updateHistoryText = () => {
 
-          const kata = hurufTerdeteksi.join("");
-          if (!kata) return alert("Belum ada huruf terdeteksi.");
-
-          const confirmSave = confirm(`Simpan hasil: "${kata}" ?`);
-          if (!confirmSave) return;
-
-          try {
-            const token = localStorage.getItem("authToken");
-            const profile = await getUserProfile(token);
-            await addHistory(profile.data.id, kata);
-            alert("✅ Terjemahan berhasil disimpan");
-            tampilkanRiwayat();
-          } catch (err) {
-            console.error(err);
-            alert("❌ Gagal menyimpan");
-          }
-        });
+        const loginHistory = document.getElementById("login-for-history");
+        const isLoggedIn = checkAuth();
+        
+        loginHistory.innerHTML = `        
+        ${
+          isLoggedIn
+            ? ``
+            : `<a href="#" id="login-for-history" class="text-sm text-gray-500 ml-4">Masuk untuk melihat riwayat</a>`
+        }
+      `;
+        };
 
       document.addEventListener("DOMContentLoaded", updateNavbar);
+      document.addEventListener("DOMContentLoaded", updateHistoryText);
 
       // history
       const tampilkanRiwayat = async () => {
