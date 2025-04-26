@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignaText</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "custom-blue": "#484f91",
+              "custom-purple": "#9b59b6",
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <style>
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+      }
+      .button {
+        transition: background-color 0.3s, transform 0.2s;
+      }
+      .button:focus {
+        outline: 2px solid #9b59b6;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+    <section id="navbar"></section>
+    <!-- HERO -->
+    <section
+      id="hero"
+      class="bg-custom-blue min-h-screen flex justify-center items-center flex-col relative overflow-hidden"
+      style="
+        background-image: url('/assets/0062.png');
+        background-size: cover;
+        background-position: center;
+      "
+    >
+      <div class="absolute inset-0 bg-black opacity-50"></div>
+      <div class="relative text-center text-white px-4 animate-fade-in">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6">
+          Selamat Datang di <span class="text-custom-blue">SignaText</span>
+        </h1>
+        <p class="text-xl md:text-3xl font-semibold max-w-2xl mx-auto mb-8">
+          Menghubungkan bahasa isyarat dengan teknologi untuk komunikasi yang
+          lebih inklusif.
+        </p>
+        <button
+          class="button bg-custom-blue text-white px-8 py-4 rounded-full text-lg font-semibold transform transition hover:scale-105"
+          onclick="document.getElementById('guide').scrollIntoView({ behavior: 'smooth' })"
+        >
+          Panduan Pengguna
+        </button>
+      </div>
+    </section>
+    <!-- Guide Section -->
+    <section id="guide" class="py-24 px-4 bg-white min-h-screen">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-custom-blue mb-12">
+          Panduan Penggunaan Signatext
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-camera text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Unggah Photo</h3>
+            <p class="text-gray-600">
+              Unggah beberapa photo berisi bahasa isyarat yang ingin Anda
+              terjemahkan. (BISINDO)
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-cogs text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Proses AI</h3>
+            <p class="text-gray-600">
+              Teknologi AI kami akan menganalisis Photo dan menghasilkan teks
+              terjemahan.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fas fa-check-circle text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Dapatkan Hasil</h3>
+            <p class="text-gray-600">
+              Lihat hasil terjemahan dalam bentuk teks yang mudah dipahami.
+            </p>
+          </div>
+          <div class="text-center">
+            <div
+              class="w-24 h-24 bg-custom-blue text-white rounded-full mx-auto flex items-center justify-center mb-6 shadow-lg transform transition hover:scale-110"
+            >
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <h3 class="text-2xl font-semibold mb-2">Fitur History</h3>
+            <p class="text-gray-600">
+              Lihat semua hasil terjemahan yang Anda punya hanya dengan
+              <b><a href="login.html">LOGIN</a></b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-24 px-4 bg-gray-100 min-h-screen">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-custom-blue mb-12">
+          Tentang Kami
+        </h2>
+        <div class="mb-16 text-center max-w-3xl mx-auto">
+          <p class="text-gray-700 text-lg leading-relaxed">
+            <strong>SignaText</strong> adalah project yang dikembangkan oleh
+            cohort dalam program
+            <strong>Coding Camp Dicoding x DBS Foundation 2025</strong>. Proyek
+            ini merupakan bagian dari tugas akhir bernama
+            <strong>Capstone Project</strong> sebagai syarat kelulusan. Kami
+            menghadirkan solusi inovatif berbasis AI untuk menerjemahkan bahasa
+            isyarat ke dalam teks, demi menciptakan dunia yang lebih inklusif.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div class="animate-fade-in-left">
+            <h3 class="text-3xl font-semibold text-custom-blue mb-6">
+              Misi Kami
+            </h3>
+            <p class="text-gray-700 text-lg leading-relaxed">
+              Misi kami adalah membangun jembatan komunikasi yang inklusif dan
+              efektif antara pengguna bahasa isyarat dan masyarakat umum. Dengan
+              menggabungkan teknologi kecerdasan buatan dan komitmen terhadap
+              aksesibilitas, SignaText hadir untuk memberdayakan penyandang
+              disabilitas dalam berkomunikasi secara lebih setara dan mandiri di
+              berbagai aspek kehidupan.
+            </p>
+          </div>
+          <div class="animate-fade-in-right">
+            <h3 class="text-3xl font-semibold text-custom-blue mb-6">
+              Tim Developer
+            </h3>
+            <ul class="space-y-3 text-gray-700 text-lg">
+              <li class="flex items-center gap-2">
+                <strong>Evelly Khanzania Putri</strong> – Full stack Developer
+                <a
+                  href="https://github.com/Vkzapple"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="flex items-center gap-2">
+                <strong>Davy Augustnur Ismail</strong> – Full Stack Developer
+                <a
+                  href="https://github.com/davyaugustnurismail"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="flex items-center gap-2">
+                <strong>Niken Putri Maharani</strong> – Frontend Developer
+                <a
+                  href="https://github.com/KeennZ"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="flex items-center gap-2">
+                <strong>Maulidan Fazri</strong> – Frontend Developer
+                <a
+                  href="https://github.com/MaulidanFazri"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li class="flex items-center gap-2">
+                <strong>Ahmad Fauzan</strong> – Machine Learning Engineer
+                <a
+                  href="https://github.com/Kerleta"
+                  target="_blank"
+                  class="text-gray-600 hover:text-black"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M12 0a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 0 0-1.34-1.76c-1.1-.76.08-.75.08-.75a2.52 2.52 0 0 1 1.84 1.24 2.55 2.55 0 0 0 3.49 1 2.55 2.55 0 0 1 .76-1.6c-2.66-.3-5.46-1.33-5.46-5.93a4.64 4.64 0 0 1 1.24-3.23 4.3 4.3 0 0 1 .12-3.18s1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 0 1 .12 3.18 4.63 4.63 0 0 1 1.23 3.23c0 4.61-2.8 5.63-5.47 5.93a2.85 2.85 0 0 1 .81 2.21v3.28c0 .32.22.7.83.58A12 12 0 0 0 12 0z"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Fitur Utama -->
+    <section id="features" class="py-24 px-4">
+      <div class="max-w-7xl mx-auto bg-white p-12 shadow-xl rounded-lg">
+        <div class="grid md:grid-cols-2 gap-12 mb-12">
+          <!-- Upload Box -->
+          <div class="text-center space-y-4">
+            <label
+              for="video-upload"
+              class="button bg-custom-blue hover:bg-indigo-800 text-white px-6 py-3 rounded-full text-lg cursor-pointer inline-block"
+            >
+              <i class="fas fa-upload mr-2"></i> Unggah Foto Huruf
+            </label>
+            <input
+              type="file"
+              id="video-upload"
+              class="hidden"
+              accept="image/*"
+            />
+          </div>
+          <!-- Deteksi Box -->
+          <div class="text-center">
+            <div class="text-6xl font-bold text-gray-700" id="deteksiText">
+              -
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Huruf Terdeteksi</p>
+            <div class="text-xs text-gray-400 mt-2">
+              <p id="processingText">Menunggu proses...</p>
+              <div class="text-green-500" id="accuracy">-</div>
+            </div>
+          </div>
+        </div>
+        <!-- Hasil Terjemahan -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+          <h3 class="text-xl font-semibold mb-4">
+            Hasil Terjemahan (Gabungan Huruf)
+          </h3>
+          <p
+            class="text-lg text-gray-800 font-mono tracking-wide"
+            id="translatedText"
+          >
+            -
+          </p>
+          <div class="mt-4 flex gap-4">
+            <button
+              id="reset-btn"
+              title="Reset"
+              class="text-red-500 text-xl hover:text-red-700"
+            >
+              <i class="fas fa-trash"></i>
+            </button>
+            <button
+              id="save-btn"
+              title="Simpan"
+              class="text-green-600 text-xl hover:text-green-800"
+            >
+              <i class="fas fa-save"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Riwayat Terjemahan -->
+        <div id="history-section" class="mt-12 hidden">
+          <h3 class="text-xl font-semibold mb-4 text-custom-blue">
+            Riwayat Terjemahan Anda
+          </h3>
+          <ul
+            id="history-list"
+            class="list-disc list-inside text-gray-700 space-y-1"
+          ></ul>
+        </div>
+        <a href="#" id="login-for-history" class="text-sm text-gray-500 ml-4"
+          >Masuk untuk melihat riwayat</a
+        >
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="text-center py-12 text-sm text-gray-500">
+      &copy; 2025 SignaText. All rights reserved.
+    </footer>
+    <script type="module">
+      import {
+        getUserProfile,
+        uploadMediaFile,
+        addHistory,
+        fetchUserHistory,
+        getToken,
+        saveToken,
+        removeToken,
+      } from "/api.js";
+
+      let hurufTerdeteksi = [];
+
+      // durasi token valid (3 hari)
+      const TOKEN_EXPIRE_TIME = 3 * 24 * 60 * 60 * 1000;
+
+      // check token
+      function checkAuth() {
+        const token = localStorage.getItem("authToken");
+        return token ? true : false;
+      }
+
+      // Update navbar
+      const updateNavbar = () => {
+        const navbar = document.getElementById("navbar");
+        const isLoggedIn = checkAuth();
+
+        navbar.innerHTML = `
+    <nav class="bg-white shadow-md p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div class="flex gap-6 items-center">
+          <h1 class="text-xl font-bold text-custom-blue">SignaText</h1>
+          <a href="#hero" class="hover:text-custom-blue">Beranda</a>
+          <a href="#about" class="hover:text-custom-blue">Tentang</a>
+          <a href="#features" class="hover:text-custom-blue">Fitur Utama</a>
+        </div>
+        <div>
+          ${
+            isLoggedIn
+              ? `<span class="text-green-600">Logged In</span>`
+              : `<a href="/login.html" class="bg-custom-blue text-white px-4 py-2 rounded hover:bg-indigo-800 transition">Login</a>`
+          }
+        </div>
+      </div>
+    </nav>
+  `;
+      };
+
+      const updateHistoryText = () => {
+        const loginHistory = document.getElementById("login-for-history");
+        const isLoggedIn = checkAuth();
+
+        loginHistory.innerHTML = `        
+        ${
+          isLoggedIn
+            ? ``
+            : `<a href="#" id="login-for-history" class="text-sm text-gray-500 ml-4">Masuk untuk melihat riwayat</a>`
+        }
+      `;
+      };
+
+      document.addEventListener("DOMContentLoaded", updateNavbar);
+      document.addEventListener("DOMContentLoaded", updateHistoryText);
+
+      // history
+      const tampilkanRiwayat = async () => {
+        const isLoggedIn = checkAuth();
+        const section = document.getElementById("history-section");
+        const list = document.getElementById("history-list");
+
+        if (!isLoggedIn) {
+          section.classList.add("hidden");
+          list.innerHTML = "";
+          return;
+        }
+
+        try {
+          const token = localStorage.getItem("authToken");
+          if (!token) throw new Error("No token found");
+
+          const profile = await getUserProfile(token);
+          const userId = profile.data.id;
+
+          const history = await fetchUserHistory(userId);
+          section.classList.add("hidden");
+
+          if (history.success && history.data.length > 0) {
+            section.classList.remove("hidden");
+            list.innerHTML = "";
+
+            history.data.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = item.translated_text;
+              list.appendChild(li);
+            });
+          } else {
+            list.innerHTML = "<li>Tidak ada riwayat terjemahan.</li>";
+          }
+        } catch (err) {
+          console.error("Gagal load history:", err);
+        }
+      };
+
+      // Upload File
+      const handleUpload = async (file) => {
+        const deteksiText = document.getElementById("deteksiText");
+        const processingText = document.getElementById("processingText");
+        const accuracyText = document.getElementById("accuracy");
+
+        try {
+          deteksiText.textContent = "-";
+          processingText.textContent = "Memproses...";
+          accuracyText.textContent = "-";
+
+          const result = await uploadMediaFile(file);
+          const predictions = result.result?.predictions || [];
+
+          if (predictions.length === 0)
+            throw new Error("Tidak ada prediksi ditemukan");
+
+          predictions.sort((a, b) => b.confidence - a.confidence);
+          const best = predictions[0];
+          const secondBest = predictions[1];
+
+          const huruf = best.label.toUpperCase();
+          const confidence = best.confidence;
+
+          let isAmbiguous = false;
+          if (secondBest && best.confidence - secondBest.confidence < 0.1) {
+            isAmbiguous = true;
+          }
+
+          hurufTerdeteksi.push(huruf);
+          updateTampilan();
+
+          deteksiText.textContent = huruf;
+          processingText.textContent = isAmbiguous
+            ? "Selesai (Hasil Mungkin Ambigu)"
+            : "Selesai";
+          accuracyText.textContent = `${Math.round(confidence * 100)}% Akurasi`;
+        } catch (err) {
+          console.error("Gagal deteksi:", err);
+          processingText.textContent = "Gagal deteksi huruf";
+        }
+      };
+
+      // Update Translate
+      const updateTampilan = () => {
+        document.getElementById("translatedText").textContent =
+          hurufTerdeteksi.length > 0 ? hurufTerdeteksi.join("") : "-";
+      };
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        updateNavbar();
+        tampilkanRiwayat();
+
+        const photoInput =
+          document.getElementById("photo-upload") ||
+          document.getElementById("video-upload");
+
+        document.getElementById("reset-btn")?.addEventListener("click", () => {
+          hurufTerdeteksi = [];
+          updateTampilan();
+          document.getElementById("deteksiText").textContent = "-";
+          document.getElementById("processingText").textContent =
+            "Menunggu proses...";
+          document.getElementById("accuracy").textContent = "-";
+        });
+
+        document
+          .getElementById("save-btn")
+          ?.addEventListener("click", async () => {
+            if (!checkAuth()) return alert("Harus login dulu untuk menyimpan.");
+
+            const kata = hurufTerdeteksi.join("");
+            if (!kata) return alert("Belum ada huruf terdeteksi.");
+
+            const confirmSave = confirm(`Simpan hasil: "${kata}" ?`);
+            if (!confirmSave) return;
+
+            try {
+              const token = localStorage.getItem("authToken");
+              const profile = await getUserProfile(token);
+              await addHistory(profile.data.id, kata);
+              alert("✅ Terjemahan berhasil disimpan");
+              tampilkanRiwayat();
+            } catch (err) {
+              console.error(err);
+              alert("❌ Gagal menyimpan");
+            }
+          });
+
+        photoInput?.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          handleUpload(file);
+        });
+      });
+    </script>
+  </body>
+</html>
